@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERNxAI Certificate Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@400;700&family=Chakra+Petch:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a192f;
+            color: #ccd6f6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .card {
+            background-color: #112240;
+            border: 1px solid #233554;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+
+        .btn {
+            background-color: #64ffda;
+            color: #0a192f;
+            transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+            font-weight: bold;
+            border-radius: 0.375rem;
+        }
+
+        .btn:hover {
+            background-color: #0a192f;
+            color: #64ffda;
+            outline: 1px solid #64ffda;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #64ffda;
+            outline: 1px solid #64ffda;
+        }
+
+        .btn-secondary:hover {
+            background-color: #64ffda1a;
+        }
+
+        input {
+            background-color: #233554;
+            border: 1px solid #303C55;
+            color: #ccd6f6;
+        }
+
+        #certificate {
+            background-image: url('Cert.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 1.414 / 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        #participantName {
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            color: #1e293b;
+            text-align: center;
+            width: 85%;
+            line-height: 1.1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            /* More controlled responsive font sizing */
+            font-size: clamp(14px, 4vw, 28px);
+        }
+
+        #hackerContainer h1,
+        #hackerContainer h2 {
+            font-family: 'Chakra Petch', sans-serif;
+            text-shadow: 0 0 5px #64ffda, 0 0 10px #64ffda;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: white;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .message-box.show {
+            opacity: 1;
+        }
+
+        .message-box.success {
+            background-color: #28a745;
+        }
+
+        .message-box.error {
+            background-color: #dc3545;
+        }
+
+        /* --- More Specific Breakpoints for Font Size --- */
+        /* Enhanced mobile responsiveness */
+        @media (max-width: 360px) {
+            #participantName {
+                font-size: 12px;
+                width: 90%;
+                line-height: 1.0;
+            }
+
+            #certificate {
+                margin: 0 -10px;
+            }
+        }
+
+        /* For larger phones */
+        @media (min-width: 361px) and (max-width: 480px) {
+            #participantName {
+                font-size: 14px;
+                width: 85%;
+            }
+        }
+
+        /* For small tablets and large phones in landscape */
+        @media (min-width: 481px) and (max-width: 768px) {
+            #participantName {
+                font-size: 18px;
+                width: 80%;
+            }
+        }
+
+        /* For tablets and small desktops */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            #participantName {
+                font-size: 22px;
+                width: 75%;
+            }
+        }
+
+        /* For larger screens */
+        @media (min-width: 1025px) {
+            #participantName {
+                font-size: 24px;
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="container w-full">
+        <!-- Form Section -->
+        <div id="formContainer" class="card p-6 md:p-8">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl md:text-4xl font-bold text-slate-200">MERNxAI Hackathon</h1>
+                <p class="text-lg text-slate-400 mt-2">Certificate Generator</p>
+            </div>
+            <form id="certificateForm" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-slate-300 mb-1">Participant Name</label>
+                    <input type="text" id="name" name="name"
+                        class="w-full p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                        placeholder="e.g., Your Name" required>
+                </div>
+                <div>
+                    <label for="regNo" class="block text-sm font-medium text-slate-300 mb-1">Registration Number</label>
+                    <input type="text" id="regNo" name="regNo"
+                        class="w-full p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                        placeholder="e.g., 23BCExxxxx" required>
+                </div>
+                <button type="submit" class="w-full btn py-3 px-4">
+                    Generate Certificate
+                </button>
+            </form>
+        </div>
+
+        <!-- Certificate Display Section -->
+        <div id="certificateContainer" class="card mt-8 p-1 sm:p-2 md:p-4 hidden">
+            <div id="certificate">
+                <div id="participantName"></div>
+            </div>
+            <div
+                class="flex flex-col sm:flex-row items-center justify-center mt-2 sm:mt-4 space-y-2 sm:space-y-0 sm:space-x-4 px-2">
+                <button id="downloadBtn" class="w-full sm:w-auto btn py-2 px-4 sm:px-6 text-sm sm:text-base">Download
+                    Certificate</button>
+                <button id="backBtn"
+                    class="w-full sm:w-auto btn-secondary py-2 px-4 sm:px-6 text-sm sm:text-base">Generate
+                    Another</button>
+            </div>
+        </div>
+
+        <!-- Hacker Challenge Section -->
+        <div id="hackerContainer" class="card p-6 md:p-8 text-center hidden">
+            <h1 class="text-4xl md:text-5xl font-bold text-red-500" style="text-shadow: 0 0 5px #f00, 0 0 10px #f00;">
+                ACCESS DENIED</h1>
+            <h2 class="text-2xl md:text-3xl font-bold text-green-300 mt-4">Or is it an invitation?</h2>
+            <p class="text-slate-300 mt-6 text-lg md:text-xl">
+                Cute. You tried to hack our certificate system. Your attempt didn't go unnoticed.
+                But instead of sounding the alarms, we're intrigued.
+            </p>
+            <p class="text-slate-100 font-bold mt-4 text-xl md:text-2xl">
+                We challenge you to bring your 'skills' to a real battleground.
+            </p>
+            <h2 class="text-3xl md:text-4xl font-bold text-green-300 my-6">DAWN OF CODE</h2>
+            <div class="my-6">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=YOUR_EVENT_URL_HERE"
+                    alt="QR Code for Dawn of Code event" class="mx-auto rounded-lg border-4 border-green-300 p-1"
+                    onerror="this.onerror=null; this.src='https://placehold.co/150x150/0a192f/64ffda?text=Event+QR';">
+            </div>
+            <a href="#" id="eventLink" class="btn inline-block py-3 px-8 text-lg">Show Us What You've Got</a>
+            <button id="tryAgainBtn" class="block mx-auto mt-4 text-slate-400 hover:text-green-300 transition">I give
+                up, take me back</button>
+        </div>
+
+    </div>
+
+    <!-- Message Box for notifications -->
+    <div id="messageBox" class="message-box"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // --- Configuration ---
+        const validRegNos = ['23BAI11158']
+        // You can change this to your actual event URL
+        const eventUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeBI_ojXb927O5h4uleeklXQfYbk-irl6zMzNLHFxeXoYDFRg/viewform ";
+
+        // --- Element References ---
+        const formContainer = document.getElementById('formContainer');
+        const certificateContainer = document.getElementById('certificateContainer');
+        const hackerContainer = document.getElementById('hackerContainer');
+        const certificateForm = document.getElementById('certificateForm');
+        const participantNameEl = document.getElementById('participantName');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const backBtn = document.getElementById('backBtn');
+        const tryAgainBtn = document.getElementById('tryAgainBtn');
+        const messageBox = document.getElementById('messageBox');
+
+        // --- Setup ---
+        // Set the actual links for the event
+        document.querySelector('#hackerContainer img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(eventUrl)}`;
+        document.getElementById('eventLink').href = eventUrl;
+
+
+        // --- Functions ---
+        function showMessage(message, type = 'success') {
+            messageBox.textContent = message;
+            messageBox.className = `message-box ${type} show`;
+            setTimeout(() => {
+                messageBox.className = 'message-box';
+            }, 3000);
+        }
+
+        function handleGenerate(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('name');
+            const regNoInput = document.getElementById('regNo');
+            const name = nameInput.value.trim();
+            const regNo = regNoInput.value.trim();
+
+            if (!name || !regNo) {
+                return;
+            }
+
+            if (validRegNos.includes(regNo.toUpperCase())) {
+                // VALID: Show the certificate
+                // Format the name for better mobile display
+                const displayText = `${name} (${regNo})`;
+                participantNameEl.textContent = displayText;
+
+                // Adjust font size if name is too long
+                const textLength = displayText.length;
+                if (textLength > 25) {
+                    participantNameEl.style.fontSize = 'clamp(10px, 3vw, 20px)';
+                } else if (textLength > 20) {
+                    participantNameEl.style.fontSize = 'clamp(12px, 3.5vw, 24px)';
+                } else {
+                    participantNameEl.style.fontSize = 'clamp(14px, 4vw, 28px)';
+                }
+
+                formContainer.classList.add('hidden');
+                certificateContainer.classList.remove('hidden');
+                hackerContainer.classList.add('hidden');
+                showMessage('Certificate generated successfully!', 'success');
+            } else {
+                // INVALID: Show the hacker challenge
+                formContainer.classList.add('hidden');
+                certificateContainer.classList.add('hidden');
+                hackerContainer.classList.remove('hidden');
+            }
+        }
+
+        function handleDownload() {
+            const certificateElement = document.getElementById('certificate');
+            const name = document.getElementById('name').value.trim() || 'participant';
+            const regNo = document.getElementById('regNo').value.trim();
+            const filename = `Certificate-${name.replace(/[^a-zA-Z0-9]/g, '_')}-${regNo}.png`;
+
+            // Show loading message
+            showMessage('Generating certificate image...', 'success');
+
+            // Use higher scale for mobile devices to ensure quality
+            const isMobile = window.innerWidth < 768;
+            const scale = isMobile ? 4 : 3;
+
+            html2canvas(certificateElement, {
+                scale: scale,
+                useCORS: true,
+                backgroundColor: null,
+                width: certificateElement.offsetWidth,
+                height: certificateElement.offsetHeight,
+                logging: false
+            })
+                .then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = filename;
+                    link.href = canvas.toDataURL('image/png', 0.9);
+
+                    // For mobile devices, try to force download
+                    if (isMobile) {
+                        // Create a temporary click event
+                        const event = new MouseEvent('click', {
+                            view: window,
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        link.dispatchEvent(event);
+                    } else {
+                        link.click();
+                    }
+
+                    showMessage('Certificate downloaded successfully!', 'success');
+                })
+                .catch(err => {
+                    console.error('Error generating canvas:', err);
+                    showMessage('Error generating certificate. Please try again.', 'error');
+                });
+        }
+
+        function resetToForm() {
+            certificateContainer.classList.add('hidden');
+            hackerContainer.classList.add('hidden');
+            formContainer.classList.remove('hidden');
+            certificateForm.reset();
+            // Reset the participant name font size
+            participantNameEl.style.fontSize = 'clamp(14px, 4vw, 28px)';
+        }
+
+        // --- Event Listeners ---
+        certificateForm.addEventListener('submit', handleGenerate);
+        downloadBtn.addEventListener('click', handleDownload);
+        backBtn.addEventListener('click', resetToForm);
+        tryAgainBtn.addEventListener('click', resetToForm);
+
+    </script>
+</body>
+
+</html>
