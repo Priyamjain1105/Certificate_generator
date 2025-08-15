@@ -10,11 +10,26 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@400;700&family=Chakra+Petch:wght@700&display=swap"
         rel="stylesheet">
     <style>
+        :root {
+            /* Default or placeholder colors - will be overwritten by JS */
+            --background-color: #0a192f;
+            --card-color: #112240;
+            --border-color: #233554;
+            --text-color-light: #ccd6f6;
+            --text-color-dark: #8892b0;
+            --accent-color: #64ffda;
+            --accent-color-hover: #0a192f;
+            --accent-border-color: #64ffda;
+            --accent-bg-transparent: #64ffda1a;
+            --hacker-text-color: #ff0000;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a192f;
-            color: #ccd6f6;
+            background-color: var(--background-color);
+            color: var(--text-color-light);
             overflow-x: hidden;
+            transition: background-color 0.5s ease;
         }
 
         .container {
@@ -24,11 +39,12 @@
         }
 
         .card {
-            background-color: #112240;
-            border: 1px solid #233554;
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
             animation: fadeIn 1s ease-in-out;
+            transition: background-color 0.5s ease, border-color 0.5s ease;
         }
 
         @keyframes fadeIn {
@@ -44,40 +60,40 @@
         }
 
         .btn {
-            background-color: #64ffda;
-            color: #0a192f;
+            background-color: var(--accent-color);
+            color: var(--background-color);
             transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
             font-weight: bold;
             border-radius: 0.375rem;
         }
 
         .btn:hover {
-            background-color: #0a192f;
-            color: #64ffda;
-            outline: 1px solid #64ffda;
+            background-color: var(--accent-color-hover);
+            color: var(--accent-color);
+            outline: 1px solid var(--accent-border-color);
         }
 
         .btn-secondary {
             background-color: transparent;
-            color: #64ffda;
-            outline: 1px solid #64ffda;
+            color: var(--accent-color);
+            outline: 1px solid var(--accent-border-color);
         }
 
         .btn-secondary:hover {
-            background-color: #64ffda1a;
+            background-color: var(--accent-bg-transparent);
         }
 
         input {
-            background-color: #233554;
-            border: 1px solid #303C55;
-            color: #ccd6f6;
+            background-color: var(--border-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color-light);
             transition: all 0.2s;
         }
 
         input:focus {
             outline: none;
-            border-color: #64ffda;
-            box-shadow: 0 0 0 1px #64ffda;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 1px var(--accent-color);
         }
 
         #certificate {
@@ -114,9 +130,34 @@
         #hackerContainer h1,
         #hackerContainer h2,
         #promo h1,
-        #promo h2 {
+        #promo h2,
+        .modal-content h3,
+        .text-green-300 {
             font-family: 'Chakra Petch', sans-serif;
-            text-shadow: 0 0 5px #64ffda, 0 0 10px #64ffda;
+            text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+            color: var(--accent-color);
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+        }
+
+        .marquee-content a.text-green-300 {
+            color: var(--accent-color);
+        }
+
+        .hacker-text {
+            color: var(--hacker-text-color);
+            text-shadow: 0 0 5px var(--hacker-text-color), 0 0 10px var(--hacker-text-color);
+        }
+
+        .text-slate-200 {
+            color: var(--text-color-light);
+        }
+
+        .text-slate-300 {
+            color: var(--text-color-light);
+        }
+
+        .text-slate-400 {
+            color: var(--text-color-dark);
         }
 
         .hidden {
@@ -151,10 +192,11 @@
         .marquee-container {
             width: 100%;
             overflow: hidden;
-            background-color: #64ffda1a;
-            border-bottom: 1px solid #64ffda;
+            background-color: var(--accent-bg-transparent);
+            border-bottom: 1px solid var(--accent-border-color);
             padding: 8px 0;
             margin-bottom: 24px;
+            transition: background-color 0.5s ease, border-color 0.5s ease;
         }
 
         .marquee-content {
@@ -178,10 +220,11 @@
         footer {
             margin-top: 48px;
             padding: 24px 0;
-            border-top: 1px solid #233554;
+            border-top: 1px solid var(--border-color);
             text-align: center;
-            color: #8892b0;
+            color: var(--text-color-dark);
             font-size: 0.875rem;
+            transition: border-color 0.5s ease, color 0.5s ease;
         }
 
         /* Modal Styles */
@@ -207,7 +250,7 @@
         }
 
         .modal-content {
-            background-color: #112240;
+            background-color: var(--card-color);
             padding: 2rem;
             border-radius: 8px;
             width: 90%;
@@ -215,7 +258,7 @@
             text-align: center;
             position: relative;
             transform: scale(0.9);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.5s ease;
         }
 
         .modal.show .modal-content {
@@ -224,7 +267,7 @@
 
         .modal-content h3 {
             font-family: 'Chakra Petch', sans-serif;
-            text-shadow: 0 0 5px #64ffda, 0 0 10px #64ffda;
+            text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
         }
 
         .modal-close {
@@ -233,7 +276,7 @@
             right: 15px;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #8892b0;
+            color: var(--text-color-dark);
         }
 
         /* Responsive adjustments for overall layout */
@@ -367,7 +410,7 @@
         </div>
 
         <div id="hackerContainer" class="card p-6 md:p-8 text-center hidden">
-            <h1 class="text-4xl md:text-5xl font-bold text-red-500" style="text-shadow: 0 0 5px #f00, 0 0 10px #f00;">
+            <h1 class="text-4xl md:text-5xl font-bold hacker-text">
                 ACCESS DENIED</h1>
             <h2 class="text-2xl md:text-3xl font-bold text-green-300 mt-4">Or is it an invitation?</h2>
             <p class="text-slate-300 mt-6 text-lg md:text-xl">
@@ -424,6 +467,87 @@
         // --- Configuration ---
         const validRegNos = ['23BAI11158'];
         const eventUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeBI_ojXb927O5h4uleeklXQfYbk-irl6zMzNLHFxeXoYDFRg/viewform ";
+
+        // New color palettes
+        const colorPalettes = [
+            // Dark Blue & Teal (Original)
+            {
+                '--background-color': '#0a192f',
+                '--card-color': '#112240',
+                '--border-color': '#233554',
+                '--text-color-light': '#ccd6f6',
+                '--text-color-dark': '#8892b0',
+                '--accent-color': '#64ffda',
+                '--accent-color-hover': '#0a192f',
+                '--accent-border-color': '#64ffda',
+                '--accent-bg-transparent': '#64ffda1a',
+                '--hacker-text-color': '#ff0000',
+            },
+            // Dark Purple & Pink
+            {
+                '--background-color': '#1a0d24',
+                '--card-color': '#2e1c40',
+                '--border-color': '#422c54',
+                '--text-color-light': '#e0d6f6',
+                '--text-color-dark': '#a892b0',
+                '--accent-color': '#e064ff',
+                '--accent-color-hover': '#1a0d24',
+                '--accent-border-color': '#e064ff',
+                '--accent-bg-transparent': '#e064ff1a',
+                '--hacker-text-color': '#ff0000',
+            },
+            // Charcoal & Bright Green
+            {
+                '--background-color': '#1a1a1a',
+                '--card-color': '#2a2a2a',
+                '--border-color': '#444444',
+                '--text-color-light': '#f0f0f0',
+                '--text-color-dark': '#a0a0a0',
+                '--accent-color': '#00ff8c',
+                '--accent-color-hover': '#1a1a1a',
+                '--accent-border-color': '#00ff8c',
+                '--accent-bg-transparent': '#00ff8c1a',
+                '--hacker-text-color': '#ff0000',
+            },
+            // Dark Brown & Gold
+            {
+                '--background-color': '#1c1713',
+                '--card-color': '#2e2720',
+                '--border-color': '#4a4035',
+                '--text-color-light': '#f5f5dc',
+                '--text-color-dark': '#bdae9c',
+                '--accent-color': '#ffc107',
+                '--accent-color-hover': '#1c1713',
+                '--accent-border-color': '#ffc107',
+                '--accent-bg-transparent': '#ffc1071a',
+                '--hacker-text-color': '#ff4d4d',
+            },
+            // Deep Ocean & Coral
+            {
+                '--background-color': '#0b2f4a',
+                '--card-color': '#164263',
+                '--border-color': '#275a7c',
+                '--text-color-light': '#f0f8ff',
+                '--text-color-dark': '#a5c0d0',
+                '--accent-color': '#ff6347',
+                '--accent-color-hover': '#0b2f4a',
+                '--accent-border-color': '#ff6347',
+                '--accent-bg-transparent': '#ff63471a',
+                '--hacker-text-color': '#ff4d4d',
+            }
+        ];
+
+        function applyRandomPalette() {
+            const randomIndex = Math.floor(Math.random() * colorPalettes.length);
+            const palette = colorPalettes[randomIndex];
+            const root = document.documentElement;
+            for (const [key, value] of Object.entries(palette)) {
+                root.style.setProperty(key, value);
+            }
+        }
+
+        // Apply a random palette when the page loads
+        document.addEventListener('DOMContentLoaded', applyRandomPalette);
 
         // --- Element References ---
         const formContainer = document.getElementById('formContainer');
