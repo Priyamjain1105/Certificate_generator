@@ -6,5 +6,6 @@ Developed for generating Certificates for MERNXAI Event
 
 
 ### Credits
-- [Sai Prajapati](https://github.com/saiprajapati) 
 - [Priyam Jain ](https://github.com/Priyamjain1105)  
+- [Sai Prajapati](https://github.com/saiprajapati) 
+
